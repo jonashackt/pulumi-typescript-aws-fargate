@@ -1,4 +1,9 @@
 # pulumi-typescript-aws-fargate
+[![Build Status](https://travis-ci.org/jonashackt/pulumi-typescript-aws-fargate.svg?branch=master)](https://travis-ci.org/jonashackt/pulumi-typescript-aws-fargate)
+[![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/jonashackt/pulumi-typescript-aws-fargate/blob/master/LICENSE)
+[![renovateenabled](https://img.shields.io/badge/renovate-enabled-yellow)](https://renovatebot.com)
+[![versionpulumi](https://img.shields.io/github/package-json/dependency-version/jonashackt/pulumi-typescript-aws-fargate/@pulumi/pulumi?color=brightgreen&label=pulumi)](https://www.pulumi.com/)
+
 Example project showing how to run Dockerized spring-boot-vuejs with Pulumi on AWS Fargate based on AWS ECS
 
 There's some confusion about AWS ECS, EKS & Fargate - try to [read posts like this](https://cloudonaut.io/ecs-vs-fargate-whats-the-difference/).
