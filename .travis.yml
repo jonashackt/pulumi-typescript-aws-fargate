@@ -15,13 +15,6 @@ install:
   # Third: Check, if Pulumi aws plugin was installed correctly
   - pulumi plugin ls
 
-  # Forth: Configure AWS CLI
-  - aws configure set aws_access_key_id $AWS_ACCESS_KEY
-  - aws configure set aws_secret_access_key $AWS_SECRET_KEY
-  - aws configure set default.region eu-central-1
-  # show AWS CLI config
-  - aws configure list
-
 
 script:
   # login to app.pulumi.com with the predefined PULUMI_ACCESS_TOKEN
