@@ -218,7 +218,7 @@ node_js:
   - 12.13.0
 
 install:
-  # First: install Pulumi SDK with the installation script from https://www.pulumi.com/docs/get-started/install/#installation-script
+  # Install Pulumi SDK with the installation script from https://www.pulumi.com/docs/get-started/install/#installation-script
   - curl -fsSL https://get.pulumi.com | sh
   # Add Pulumi to Travis' PATH so the executable could be found
   - export PATH=$PATH:/home/travis/.pulumi/bin
@@ -230,22 +230,15 @@ First we set the Travis `language` to `node_js` incl. a current version of node 
 Then we install the Node.js dependencies needed by our Pulumi project and configure the AWS CLI:
 
 ```yaml
-  # Second: Install pulumi-aws dependencies (among others like awscli) via npm dependency manager
+  # Install pulumi-aws dependencies (among others like awscli) via npm dependency manager
   - npm install
-  # Third: Check, if Pulumi aws plugin was installed correctly
+  # Check, if Pulumi aws plugin was installed correctly
   - pulumi plugin ls
-
-  # Forth: Configure AWS CLI
-  - aws configure set aws_access_key_id $AWS_ACCESS_KEY
-  - aws configure set aws_secret_access_key $AWS_SECRET_KEY
-  - aws configure set default.region eu-central-1
-  # show AWS CLI config
-  - aws configure list
 ```
 
-Be sure to not forget to define the needed environment variables `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` inside the TravisCI project setup at https://travis-ci.org/jonashackt/pulumi-typescript-aws-fargate/settings
-
-Also define the `PULUMI_ACCESS_TOKEN` variable for the next step.
+Be sure to not forget to define the needed environment variables `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` inside the TravisCI project setup at https://travis-ci.org/jonashackt/pulumi-typescript-aws-fargate/settings . The cool thing here about Pulumi is, that [those two environment variables sufficient to work with AWS](https://www.pulumi.com/docs/intro/cloud-providers/aws/setup/#environment-variables)! There's no extra AWS CLI installation needed - although the docs recommend using the Shared Credentials File created by AWS CLI installation & configuration. But with a Typescript-based Pulumi setup, we then would not only need to managed Node.js packages, but also a Python installation and PIP packages.
+ 
+Don't forget to also define the `PULUMI_ACCESS_TOKEN` variable for the next step.
 
 Finally we should be able to fire up our Pulumi AWS Fargate deployment:
 
