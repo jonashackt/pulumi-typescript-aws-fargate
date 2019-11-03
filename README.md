@@ -3,6 +3,9 @@
 [![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/jonashackt/pulumi-typescript-aws-fargate/blob/master/LICENSE)
 [![renovateenabled](https://img.shields.io/badge/renovate-enabled-yellow)](https://renovatebot.com)
 [![versionpulumi](https://img.shields.io/github/package-json/dependency-version/jonashackt/pulumi-typescript-aws-fargate/@pulumi/pulumi?color=brightgreen&label=pulumi)](https://www.pulumi.com/)
+[![versionpulumiaws](https://img.shields.io/github/package-json/dependency-version/jonashackt/pulumi-typescript-aws-fargate/@pulumi/aws?color=brightgreen)](https://www.pulumi.com/docs/reference/pkg/nodejs/pulumi/aws/)
+[![versionpulumiawsx](https://img.shields.io/github/package-json/dependency-version/jonashackt/pulumi-typescript-aws-fargate/@pulumi/awsx?color=brightgreen)](https://www.pulumi.com/docs/reference/pkg/nodejs/pulumi/awsx/)
+[![versiontypescript](https://img.shields.io/github/package-json/dependency-version/jonashackt/pulumi-typescript-aws-fargate/dev/@types/node?label=@types/node)](https://github.com/DefinitelyTyped/DefinitelyTyped)
 
 Example project showing how to run Dockerized spring-boot-vuejs with Pulumi on AWS Fargate based on AWS ECS
 
