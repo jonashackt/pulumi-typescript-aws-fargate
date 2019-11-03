@@ -1,0 +1,35 @@
+---
+language: node_js
+
+install:
+  # First: install Pulumi SDK with the installation script from https://www.pulumi.com/docs/get-started/install/#installation-script
+  - curl -fsSL https://get.pulumi.com | sh
+  # Add Pulumi to Travis' PATH so the executable could be found
+  - export PATH=$PATH:/home/travis/.pulumi/bin
+  - pulumi version
+
+  # Second: Install pulumi-aws dependencies (among others like awscli) via npm dependency manager
+  - npm install
+  # Third: Check, if Pulumi aws plugin was installed correctly
+  - pulumi plugin ls
+
+  # Forth: Configure AWS CLI
+  - aws configure set aws_access_key_id $AWS_ACCESS_KEY
+  - aws configure set aws_secret_access_key $AWS_SECRET_KEY
+  - aws configure set default.region eu-central-1
+  # show AWS CLI config
+  - aws configure list
+
+
+script:
+  # login to app.pulumi.com with the predefined PULUMI_ACCESS_TOKEN
+  - pulumi login
+
+  # Select your Pulumi projects' stack
+  - pulumi stack select dev
+
+  # Create AWS Fargate application deployment
+  - pulumi up --yes
+
+  # Destroy Pulumi setup after successful creation
+  - pulumi destroy --yes

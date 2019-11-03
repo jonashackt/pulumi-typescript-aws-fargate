@@ -204,3 +204,58 @@ pulumi logs --follow
 Now access the provides url nginx-a935168-1026809480.eu-central-1.elb.amazonaws.com:8098 with the port defined inside the `loadbalancer` defintion and you should see our app:
 
 ![running-spring-boot-vuejs-aws-fargate](screenshots/running-spring-boot-vuejs-aws-fargate.png)
+
+
+### Run Typescript-based Pulumi on TravisCI
+
+The example project [pulumi-python-aws-ansible](https://github.com/jonashackt/pulumi-python-aws-ansible) shows already how to [run a Python-based Pulumi project on TravisCI](https://github.com/jonashackt/pulumi-python-aws-ansible#run-pulumi-with-travis).
+
+But here we'll need the Typescript/Javascript variant! The Travis [docs provide a guide showing how to build Node.js applications](Building a JavaScript and Node.js project), so let's create a [.travis.yml](.travis.yml):
+
+```yaml
+language: node_js
+
+install:
+  # First: install Pulumi SDK with the installation script from https://www.pulumi.com/docs/get-started/install/#installation-script
+  - curl -fsSL https://get.pulumi.com | sh
+  # Add Pulumi to Travis' PATH so the executable could be found
+  - export PATH=$PATH:/home/travis/.pulumi/bin
+  - pulumi version
+```
+
+First we set the Travis `language` to `node_js` and install Pulumi just as we already know it from the Python-based setup. Then we install the Node.js dependencies needed by our Pulumi project and configure the AWS CLI:
+
+```yaml
+  # Second: Install pulumi-aws dependencies (among others like awscli) via npm dependency manager
+  - npm install
+  # Third: Check, if Pulumi aws plugin was installed correctly
+  - pulumi plugin ls
+
+  # Forth: Configure AWS CLI
+  - aws configure set aws_access_key_id $AWS_ACCESS_KEY
+  - aws configure set aws_secret_access_key $AWS_SECRET_KEY
+  - aws configure set default.region eu-central-1
+  # show AWS CLI config
+  - aws configure list
+```
+
+Be sure to not forget to define the needed environment variables `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` inside the TravisCI project setup at https://travis-ci.org/jonashackt/pulumi-typescript-aws-fargate/settings
+
+Finally we should be able to fire up our Pulumi AWS Fargate deployment:
+
+```yaml
+script:
+  # login to app.pulumi.com with the predefined PULUMI_ACCESS_TOKEN
+  - pulumi login
+
+  # Select your Pulumi projects' stack
+  - pulumi stack select dev
+
+  # Create AWS Fargate application deployment
+  - pulumi up --yes
+
+  # Destroy Pulumi setup after successful creation
+  - pulumi destroy --yes
+```
+
+Now every push to the repository will install Pulumi and it's dependencies and then spin up the complete setup - and tear it down in the end, if everything went fine.
