@@ -214,6 +214,8 @@ But here we'll need the Typescript/Javascript variant! The Travis [docs provide 
 
 ```yaml
 language: node_js
+node_js:
+  - 12.13.0
 
 install:
   # First: install Pulumi SDK with the installation script from https://www.pulumi.com/docs/get-started/install/#installation-script
@@ -223,7 +225,9 @@ install:
   - pulumi version
 ```
 
-First we set the Travis `language` to `node_js` and install Pulumi just as we already know it from the Python-based setup. Then we install the Node.js dependencies needed by our Pulumi project and configure the AWS CLI:
+First we set the Travis `language` to `node_js` incl. a current version of node (which is quite old with `node --version \ v0.10.48`, if we leave out this version definition). We also install Pulumi just as we already know it from the Python-based setup. 
+
+Then we install the Node.js dependencies needed by our Pulumi project and configure the AWS CLI:
 
 ```yaml
   # Second: Install pulumi-aws dependencies (among others like awscli) via npm dependency manager
@@ -240,6 +244,8 @@ First we set the Travis `language` to `node_js` and install Pulumi just as we al
 ```
 
 Be sure to not forget to define the needed environment variables `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` inside the TravisCI project setup at https://travis-ci.org/jonashackt/pulumi-typescript-aws-fargate/settings
+
+Also define the `PULUMI_ACCESS_TOKEN` variable for the next step.
 
 Finally we should be able to fire up our Pulumi AWS Fargate deployment:
 

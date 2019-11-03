@@ -1,5 +1,7 @@
 ---
 language: node_js
+node_js:
+  - 12.13.0
 
 install:
   # First: install Pulumi SDK with the installation script from https://www.pulumi.com/docs/get-started/install/#installation-script
