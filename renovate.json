@@ -6,5 +6,16 @@
   "automergeType": "branch",
   "major": {
     "automerge": false
-  }
+  },
+  "packageRules": [
+    {
+      "packagePatterns": ["aws"],
+      "groupName": "aws packages",
+      "automerge": true,
+      "automergeType": "branch",
+      "major": {
+        "automerge": false
+      }
+    }
+  ]
 }
